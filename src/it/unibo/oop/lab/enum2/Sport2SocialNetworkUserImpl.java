@@ -3,6 +3,9 @@
  */
 package it.unibo.oop.lab.enum2;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUserImpl;
 import it.unibo.oop.lab.socialnetwork.User;
 
@@ -30,6 +33,8 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      * 
      * add a field to keep track of the set of sports followed/done by a user
      */
+	
+	private Set<Sport> sports;
 
     /**
      * Builds a new {@link Sport2SocialNetworkUserImpl}.
@@ -61,6 +66,7 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      */
     public Sport2SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
         super(name, surname, user, userAge);
+        this.sports = new HashSet();
     }
 
     /*
@@ -75,7 +81,7 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      *            a sport followed/done by the user
      */
     public void addSport(final Sport sport) {
-
+    	this.sports.add(sport);
     }
 
     /**
@@ -87,13 +93,13 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      * @return true if user likes sport s
      */
     public boolean likesSport(final Sport s) {
-        return false;
+        return this.sports.contains(s);
     }
 
     /*
      * [METHODS] NEW METHODS TO IMPLEMENT FROM SCRATCH
      */
-
+    
     /**
      * Returns the set of individual sports followed/practiced by this user: a
      * sport is individual if the number of team member is = 1.
@@ -114,4 +120,24 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
     /*
      * public Set<Sport> getSportPracticedInPlace(Place p) { return null; }
      */
+    
+    public Set<Sport> getIndividualSports() {
+    	Set<Sport> individualSports = new HashSet();
+    	for (Sport s : this.sports) {
+    		if (s.isIndividualSport()) {
+    			individualSports.add(s);
+    		}
+    	}
+    	return individualSports;
+    }
+    
+    public Set<Sport> getSportPracticedInPlace(Place p) {
+       	Set<Sport> inplaceSports = new HashSet();
+    	for (Sport s : this.sports) {
+    		if (s.getPlace() == p) {
+    			inplaceSports.add(s);
+    		}
+    	}
+    	return inplaceSports;
+    }
 }
