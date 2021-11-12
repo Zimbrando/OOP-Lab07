@@ -7,4 +7,4 @@ Solve the exercise in the following order:
 2. `nesting1` ✔
 3. `enum1` ✔
 4. `enum2` ✔
-5. `nesting2`
+5. `nesting2` ✔
